@@ -7,10 +7,24 @@ import {
   Button,
   ScrollView,
   SafeAreaView,
+  Image,
 } from "react-native";
 
 export default function App() {
   let [posts, setPosts] = React.useState([]);
+
+  let textTooLong = (text) => {
+    if (text.length > 100) {
+      for (let i = 100; i < text.length; i++) {
+        if (text[i] === " ") {
+          return text.substring(0, i) + "...";
+        }
+      }
+    } else {
+      return text;
+    }
+    return text;
+  };
 
   async function fetchData() {
     try {
@@ -31,10 +45,17 @@ export default function App() {
           <View key={post.id} style={styles.postStyle}>
             <View style={[styles.column, styles.grow]}>
               <Text style={styles.postTitleStyle}>{post.title}</Text>
-              <Text style={styles.postBodyStyle}>{post.body}</Text>
+              <Text style={styles.postBodyStyle}>{textTooLong(post.body)}</Text>
             </View>
             <View style={[styles.column, styles.center]}>
-              <Text style={styles.postButtonStyle}>Button</Text>
+              <View style={[styles.row, styles.nextButton]}>
+                <View style={styles.postButtonStyle}>
+                  <Image
+                    source={require("./assets/arrow-point-to-right.png")}
+                    style={styles.arrowStyle}
+                  />
+                </View>
+              </View>
             </View>
           </View>
         ))}
@@ -54,6 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 16,
     marginTop: 8,
+    elevation: 2,
   },
   postTitleStyle: {
     color: "#001524",
@@ -69,6 +91,9 @@ const styles = StyleSheet.create({
   column: {
     flexDirection: "column",
   },
+  row: {
+    flexDirection: "row",
+  },
   grow: {
     flex: 1,
     width: 0,
@@ -76,8 +101,20 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: "center",
   },
-  postButtonStyle: {
+  nextButton: {
     marginHorizontal: 25.5,
+  },
+  postButtonStyle: {
+    width: 21,
+    height: 21,
+    backgroundColor: "#ECF0FA",
+    borderRadius: 50,
     flexDirection: "column",
+  },
+  arrowStyle: {
+    marginLeft: 7.5,
+    marginTop: 6.5,
+    height: 8,
+    width: 8,
   },
 });
