@@ -65,7 +65,7 @@ let Home = ({ navigation }) => {
                 <View style={[styles.row, styles.nextButton]}>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("Album", { info: post });
+                      navigation.navigate("News Details", { info: post });
                     }}
                   >
                     <View style={styles.postButtonStyle}>

@@ -15,7 +15,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./screens/Home";
-import Album from "./screens/Album";
+import NewsDetails from "./screens/NewsDetails";
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="News List" component={Home} />
-        <Stack.Screen name="Album" component={Album} />
+        <Stack.Screen name="News Details" component={NewsDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
