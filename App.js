@@ -16,6 +16,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./screens/Home";
 import NewsDetails from "./screens/NewsDetails";
+import BackButton from "./BackButton";
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,21 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="News List" component={Home} />
-        <Stack.Screen name="News Details" component={NewsDetails} />
+        <Stack.Screen
+          name="News Details"
+          component={NewsDetails}
+          options={{
+            title: "My home",
+            headerStyle: {
+              backgroundColor: "#FFFFFF",
+            },
+            headerTintColor: "#001524",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerBackImage: () => <BackButton />,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
