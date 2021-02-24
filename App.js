@@ -13,93 +13,21 @@ import {
   Dimensions,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Home from "./screens/Home";
+import Album from "./screens/Album";
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  let [posts, setPosts] = React.useState([]);
-  let [fontsLoaded, setFontsLoaded] = React.useState(false);
-
-  let windowWidth = Dimensions.get("window").width;
-  let windowHeight = Dimensions.get("window").height;
-
-  async function getFonts() {
-    await fetchData();
-    await Font.loadAsync({
-      "Gilroy-Light": require("./assets/Fonts/Gilroy-Light.otf"),
-      "Gilroy-ExtraBold": require("./assets/Fonts/Gilroy-ExtraBold.otf"),
-    });
-    setFontsLoaded(true);
-  }
-
-  let textTooLong = (text) => {
-    if (text.length > 100) {
-      for (let i = 100; i < text.length; i++) {
-        if (text[i] === " ") {
-          return text.substring(0, i) + "...";
-        }
-      }
-    } else {
-      return text;
-    }
-    return text;
-  };
-
-  async function fetchData() {
-    try {
-      let response = await fetch("https://jsonplaceholder.typicode.com/posts");
-      let responseJson = await response.json();
-      console.log(responseJson);
-      setPosts(responseJson);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  if (fontsLoaded) {
-    return (
-      <NavigationContainer>
-        <SafeAreaView style={styles.container}>
-          <ScrollView>
-            <Text>Hello</Text>
-            {posts.map((post) => (
-              <View key={post.id} style={styles.postStyle}>
-                <View style={[styles.column, styles.grow]}>
-                  <Text style={styles.postTitleStyle}>{post.title}</Text>
-                  <Text style={styles.postBodyStyle}>
-                    {textTooLong(post.body)}
-                  </Text>
-                </View>
-                <View style={[styles.column, styles.center]}>
-                  <View style={[styles.row, styles.nextButton]}>
-                    <View style={styles.postButtonStyle}>
-                      <Svg
-                        style={styles.arrowStyle}
-                        width="5"
-                        height="10"
-                        viewBox="0 0 5 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <Path
-                          d="M0.875 1.625L4.25 5L0.875 8.375"
-                          stroke="#466BC9"
-                          stroke-width="1.4"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </Svg>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            ))}
-            <Button title="Fetch" onPress={fetchData}></Button>
-          </ScrollView>
-        </SafeAreaView>
-      </NavigationContainer>
-    );
-  } else {
-    return <AppLoading start={getFonts()} />;
-  }
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="News List" component={Home} />
+        <Stack.Screen name="Album" component={Album} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
