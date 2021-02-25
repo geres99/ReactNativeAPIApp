@@ -14,16 +14,68 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home";
+import Album from "./screens/Album";
 import NewsDetails from "./screens/NewsDetails";
 import BackButton from "./components/BackButton";
+import HomeScreen from "./components/HomeScreen";
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+let HomeScreens = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="News List"
+      component={Home}
+      options={{
+        title: "News list",
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#FFFFFF",
+          height: 100,
+        },
+        headerTintColor: "#001524",
+        headerTitleStyle: {
+          fontFamily: "Gilroy-Light",
+          fontSize: 16,
+          lineHeight: 24,
+          fontWeight: "bold",
+        },
+      }}
+    />
+    <Stack.Screen
+      name="News Details"
+      component={NewsDetails}
+      options={{
+        title: "News details",
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: "#FFFFFF",
+          height: 100,
+        },
+        headerTintColor: "#001524",
+        headerTitleStyle: {
+          fontFamily: "Gilroy-Light",
+          fontSize: 16,
+          lineHeight: 24,
+          fontWeight: "bold",
+        },
+        headerBackImage: () => <BackButton />,
+      }}
+    />
+  </Stack.Navigator>
+);
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Album" component={Album} />
+      </Tab.Navigator>
+      {/* <Stack.Navigator>
         <Stack.Screen
           name="News List"
           component={Home}
@@ -63,7 +115,7 @@ export default function App() {
             headerBackImage: () => <BackButton />,
           }}
         />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }
