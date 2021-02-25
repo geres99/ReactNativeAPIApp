@@ -6,7 +6,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,

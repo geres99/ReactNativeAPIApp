@@ -1,21 +1,11 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import AppLoading from "expo-app-loading";
 
 let Album = () => {
-  let [albumData, setAlbumData] = React.useState([]);
   let [albumPhotos, setAlbumPhotos] = React.useState([]);
   let [albumLoaded, setAlbumLoaded] = React.useState(false);
-  let [alonePhono, setAlonePhoto] = React.useState([]);
+  let [alonePhoto, setAlonePhoto] = React.useState([]);
 
   async function getPhoto(id) {
     try {
@@ -35,13 +25,6 @@ let Album = () => {
       let responseJson = await response.json();
       setAlbumLoaded(true);
       let arr = [];
-      // responseJson.map((x) => {
-      //   getPhoto(x.id).then((data) => {
-      //     arr.push(data);
-      //     console.log(arr);
-      //     setAlbumPhotos(arr[0]);
-      //   });
-      // });
       for (let i = 0; i < responseJson.length; i++) {
         getPhoto(responseJson[i].id).then((data) => {
           arr.push({ name: responseJson[i].title, photos: data });
@@ -49,12 +32,11 @@ let Album = () => {
             let split = [];
             for (let v = 0; v < arr.length; v = v + 2) {
               if (arr[v + 1] === undefined) {
-                setAlonePhoto(arr[v]);
+                setAlonePhoto([arr[v]]);
               } else {
                 split.push([arr[v], arr[v + 1]]);
               }
             }
-            console.log(split);
             setAlbumPhotos(split);
           }
         });
@@ -66,31 +48,48 @@ let Album = () => {
 
   if (albumLoaded) {
     return (
-      <View>
+      <ScrollView>
+        <View style={styles.pushDown}></View>
         {albumPhotos.map((album) => (
-          <View key={album.id} style={styles.row}>
+          <View key={Math.random()} style={styles.row}>
             <View style={styles.photoShowStyle}>
-              <Text>{album[0].name}</Text>
               <Image
-                style={styles.imgstyle}
+                style={styles.imageStyle}
                 source={{
                   uri: album[0].photos[0].url,
                 }}
               />
+              <Text style={styles.imageTextStyle}>{album[0].name}</Text>
             </View>
             <View style={styles.spaceFiller}></View>
             <View style={styles.photoShowStyle}>
-              <Text>{album[1].name}</Text>
               <Image
-                style={styles.imgstyle}
+                style={styles.imageStyle}
                 source={{
                   uri: album[1].photos[0].url,
                 }}
               />
+              <Text style={styles.imageTextStyle}>{album[1].name}</Text>
             </View>
           </View>
         ))}
-      </View>
+        {alonePhoto.map((album) => (
+          <View key={Math.random()} style={styles.row}>
+            <View style={styles.photoShowStyle}>
+              <Image
+                style={styles.imageStyle}
+                source={{
+                  uri: album.photos[0].url,
+                }}
+              />
+              <Text style={styles.imageTextStyle}>{album.name}</Text>
+            </View>
+            <View style={styles.spaceFlex}></View>
+            <View></View>
+          </View>
+        ))}
+        <View style={styles.pushDown}></View>
+      </ScrollView>
     );
   } else {
     return <AppLoading start={fetchAlbumData()} />;
@@ -107,15 +106,33 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     marginHorizontal: 16,
-    marginTop: 6,
+    marginTop: 8,
   },
   spaceFiller: {
     width: 6,
   },
-  imgstyle: {
+  spaceFlex: {
+    width: null,
+    flex: 1,
+  },
+  pushDown: {
+    height: 16,
+  },
+  imageStyle: {
     width: null,
     height: 100,
     flex: 1,
+    flexShrink: 0,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  imageTextStyle: {
+    fontFamily: "Gilroy-Light",
+    fontSize: 14,
+    lineHeight: 21,
+    color: "#001524",
+    marginHorizontal: 4,
+    marginVertical: 14,
   },
 });
 

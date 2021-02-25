@@ -1,16 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  Dimensions,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
 
 let BackButton = () => {

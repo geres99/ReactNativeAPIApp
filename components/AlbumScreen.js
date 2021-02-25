@@ -1,12 +1,6 @@
 import * as React from "react";
-import { Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../screens/Home";
 import Album from "../screens/Album";
-import NewsDetails from "../screens/NewsDetails";
-import BackButton from "./BackButton";
 
 const Stack = createStackNavigator();
 
