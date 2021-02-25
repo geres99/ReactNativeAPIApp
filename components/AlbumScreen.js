@@ -4,18 +4,19 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/Home";
+import Album from "../screens/Album";
 import NewsDetails from "../screens/NewsDetails";
 import BackButton from "./BackButton";
 
 const Stack = createStackNavigator();
 
-let HomeScreen = () => (
+let AlbumScreen = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="News List"
-      component={Home}
+      name="Album"
+      component={Album}
       options={{
-        title: "News list",
+        title: "Albums",
         headerTitleAlign: "center",
         headerStyle: {
           backgroundColor: "#FFFFFF",
@@ -26,27 +27,9 @@ let HomeScreen = () => (
           fontSize: 16,
           lineHeight: 24,
         },
-      }}
-    />
-    <Stack.Screen
-      name="News Details"
-      component={NewsDetails}
-      options={{
-        title: "News details",
-        headerTitleAlign: "center",
-        headerStyle: {
-          backgroundColor: "#FFFFFF",
-          height: 100,
-        },
-        headerTintColor: "#001524",
-        headerTitleStyle: {
-          fontSize: 16,
-          lineHeight: 24,
-        },
-        headerBackImage: () => <BackButton />,
       }}
     />
   </Stack.Navigator>
 );
 
-export default HomeScreen;
+export default AlbumScreen;
