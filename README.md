@@ -1,5 +1,5 @@
 
-## Proces zbudowania aplikacji:
+## Proces zbudowania aplikacji (Android):
 
   #### Zainstalować ExpoCli (npm install --global expo-cli)
   #### cd Task
