@@ -1,10 +1,10 @@
 
 ## Proces zbudowania aplikacji:
 
-  ### Zainstalować ExpoCli (npm install --global expo-cli)
-  ### cd Task
-  ### npm run web
-  ### Zeskanować kod QR w aplikacji EXPO na telefonie
+  Zainstalować ExpoCli (npm install --global expo-cli)
+  cd Task
+  npm run web
+  Zeskanować kod QR w aplikacji EXPO na telefonie
   
   
  ## Wykorzystane biblioteki i narzędzia:
