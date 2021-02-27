@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import AppLoading from "expo-app-loading";
+import PhotoContainer from "../components/PhotoContainer";
 
 let Album = () => {
   let [albumPhotos, setAlbumPhotos] = React.useState([]);
@@ -52,38 +53,20 @@ let Album = () => {
         <View style={styles.pushDown}></View>
         {albumPhotos.map((album) => (
           <View key={Math.random()} style={styles.row}>
-            <View style={styles.photoShowStyle}>
-              <Image
-                style={styles.imageStyle}
-                source={{
-                  uri: album[0].photos[0].url,
-                }}
-              />
-              <Text style={styles.imageTextStyle}>{album[0].name}</Text>
-            </View>
+            <PhotoContainer
+              photo={album[0].photos[0].url}
+              text={album[0].name}
+            />
             <View style={styles.spaceFiller}></View>
-            <View style={styles.photoShowStyle}>
-              <Image
-                style={styles.imageStyle}
-                source={{
-                  uri: album[1].photos[0].url,
-                }}
-              />
-              <Text style={styles.imageTextStyle}>{album[1].name}</Text>
-            </View>
+            <PhotoContainer
+              photo={album[1].photos[0].url}
+              text={album[1].name}
+            />
           </View>
         ))}
         {alonePhoto.map((album) => (
           <View key={Math.random()} style={styles.row}>
-            <View style={styles.photoShowStyle}>
-              <Image
-                style={styles.imageStyle}
-                source={{
-                  uri: album.photos[0].url,
-                }}
-              />
-              <Text style={styles.imageTextStyle}>{album.name}</Text>
-            </View>
+            <PhotoContainer photo={album.photos[0].url} text={album.name} />
             <View style={styles.spaceFlex}></View>
             <View></View>
           </View>
@@ -92,17 +75,16 @@ let Album = () => {
       </ScrollView>
     );
   } else {
-    return <AppLoading start={fetchAlbumData()} />;
+    return (
+      <View>
+        <AppLoading start={fetchAlbumData()} />
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 };
 
 const styles = StyleSheet.create({
-  photoShowStyle: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 8,
-    elevation: 2,
-  },
   row: {
     flexDirection: "row",
     marginHorizontal: 16,
@@ -117,22 +99,6 @@ const styles = StyleSheet.create({
   },
   pushDown: {
     height: 16,
-  },
-  imageStyle: {
-    width: null,
-    height: 100,
-    flex: 1,
-    flexShrink: 0,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-  },
-  imageTextStyle: {
-    fontFamily: "Gilroy-Light",
-    fontSize: 14,
-    lineHeight: 21,
-    color: "#001524",
-    marginHorizontal: 4,
-    marginVertical: 14,
   },
 });
 

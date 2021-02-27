@@ -1,15 +1,14 @@
 import React from "react";
 import AppLoading from "expo-app-loading";
-import Svg, { Path } from "react-native-svg";
 import * as Font from "expo-font";
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import ArrowButton from "../components/ArrowButton";
 
 let Home = ({ navigation }) => {
   let [posts, setPosts] = React.useState([]);
@@ -49,52 +48,38 @@ let Home = ({ navigation }) => {
 
   if (fontsLoaded) {
     return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <View style={styles.pushDown}></View>
-          {posts.map((post) => (
-            <View key={post.id} style={styles.postStyle}>
-              <View style={[styles.column, styles.grow]}>
-                <Text style={styles.postTitleStyle}>{post.title}</Text>
-                <Text style={styles.postBodyStyle}>
-                  {textTooLong(post.body)}
-                </Text>
-              </View>
-              <View style={[styles.column, styles.center]}>
-                <View style={[styles.row, styles.nextButton]}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("News Details", { info: post });
-                    }}
-                  >
-                    <View style={styles.postButtonStyle}>
-                      <Svg
-                        style={styles.arrowStyle}
-                        width="5"
-                        height="10"
-                        viewBox="0 0 5 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <Path
-                          d="M0.875 1.625L4.25 5L0.875 8.375"
-                          stroke="#466BC9"
-                          stroke-width="1.4"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </Svg>
-                    </View>
-                  </TouchableOpacity>
-                </View>
+      <ScrollView style={styles.container}>
+        <View style={styles.pushDown}></View>
+        {posts.map((post) => (
+          <View key={post.id} style={styles.postStyle}>
+            <View style={[styles.column, styles.grow]}>
+              <Text style={styles.postTitleStyle}>{post.title}</Text>
+              <Text style={styles.postBodyStyle}>{textTooLong(post.body)}</Text>
+            </View>
+            <View style={[styles.column, styles.center]}>
+              <View style={[styles.row, styles.nextButton]}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("News Details", { info: post });
+                  }}
+                >
+                  <View style={styles.postButtonStyle}>
+                    <ArrowButton />
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-          ))}
-        </ScrollView>
-      </SafeAreaView>
+          </View>
+        ))}
+      </ScrollView>
     );
   } else {
-    return <AppLoading start={getFonts()} />;
+    return (
+      <View>
+        <AppLoading start={getFonts()} />
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 };
 
@@ -154,11 +139,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ECF0FA",
     borderRadius: 50,
     flexDirection: "column",
-  },
-  arrowStyle: {
-    backgroundColor: "#ECF0FA",
-    marginLeft: 8.5,
-    marginTop: 6,
   },
 });
 

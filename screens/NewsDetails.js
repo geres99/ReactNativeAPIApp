@@ -95,7 +95,12 @@ let NewsDetails = ({ route }) => {
       </ScrollView>
     );
   } else {
-    return <AppLoading start={fetchCommentData()} />;
+    return (
+      <View>
+        <AppLoading start={fetchCommentData()} />
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 };
 
